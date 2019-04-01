@@ -1,6 +1,7 @@
 package cn.emergentdesign.dcf.cli;
 
 import java.util.Collection;
+import java.util.List;
 
 import cn.emergentdesign.dcf.core.IndexCloneDetector;
 import cn.emergentdesign.dcf.core.InvertedIndexTable.IndexEntry;
@@ -33,28 +34,22 @@ public class App {
 		
 		CloneData data = buildCloneData(detector,params.getMinimumLines());
 		data.setParameters(params);
-		data.buildSummary();
-		data.setFileCount(detector.getFileCount());
-		data.setLineCount(detector.getLineCount());
-		if (detector.getErrorMessage()!=null) {
-			data.setMessage(detector.getErrorMessage());
-			System.err.println(detector.getErrorMessage());
-		}
+
 		JsonDumper dumper =new JsonDumper();
 		dumper.output(params.getOutput()+".json", data);
 		MemoryUsage.outputMemoryUsage();
 	}
 
 	private CloneData buildCloneData(IndexCloneDetector detector, Integer minimumLines) {
-		Collection<IndexEntry> groups = detector.getIndexTable().cloneGroups();
 		CloneData data = new CloneData();
-		for (IndexEntry item:groups) {
-			if (item.getSegments().get(0).getLines()<minimumLines) continue;
-			CloneClass group = data.addGroup();
-			for (Segment segment:item.getSegments()) {
-				CloneInstance cloneInstance = new CloneInstance(segment);
-				group.addInstance(cloneInstance);
-			}
+		List<CloneClass> cloneGroups = detector.getCloneGroupBeforeAggregate(minimumLines);
+		data.addGroup(cloneGroups);
+		data.buildSummary();
+		data.setFileCount(detector.getFileCount());
+		data.setLineCount(detector.getLineCount());
+		if (detector.getErrorMessage()!=null) {
+			data.setMessage(detector.getErrorMessage());
+			System.err.println(detector.getErrorMessage());
 		}
 		return data;
 	}

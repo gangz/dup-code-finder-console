@@ -25,6 +25,7 @@ SOFTWARE.
 package cn.emergentdesign.dcf.output.json;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -97,6 +98,10 @@ public class CloneData {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public void addGroup(List<CloneClass> cloneGroups) {
+		this.cloneGroup.addAll(cloneGroups);
 	}
 }
 
