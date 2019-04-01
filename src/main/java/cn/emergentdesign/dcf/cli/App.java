@@ -9,6 +9,7 @@ import cn.emergentdesign.dcf.data.CloneInstance;
 import cn.emergentdesign.dcf.data.Segment;
 import cn.emergentdesign.dcf.output.json.CloneData;
 import cn.emergentdesign.dcf.output.json.JsonDumper;
+import cn.emergentdesign.dcf.stat.resource.MemoryUsage;
 import cn.emergentdesign.dcf.uniform.Type1JavaUniformer;
 import cn.emergentdesign.dcf.uniform.Type2JavaUniformer;
 import cn.emergentdesign.dcf.uniform.Type2cJavaUniformer;
@@ -35,8 +36,13 @@ public class App {
 		data.buildSummary();
 		data.setFileCount(detector.getFileCount());
 		data.setLineCount(detector.getLineCount());
+		if (detector.getErrorMessage()!=null) {
+			data.setMessage(detector.getErrorMessage());
+			System.err.println(detector.getErrorMessage());
+		}
 		JsonDumper dumper =new JsonDumper();
 		dumper.output(params.getOutput()+".json", data);
+		MemoryUsage.outputMemoryUsage();
 	}
 
 	private CloneData buildCloneData(IndexCloneDetector detector, Integer minimumLines) {

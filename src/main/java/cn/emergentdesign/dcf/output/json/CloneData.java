@@ -34,6 +34,7 @@ import cn.emergentdesign.dcf.data.CloneClass;
 @XmlRootElement(name = "code-clones")
 public class CloneData {
     private CliParameters parameters;
+    private String message = "success";
     private Integer groupCount = 0;
     private Long fileCount  = 0L;
     private Long lineCount = 0L;
@@ -90,6 +91,12 @@ public class CloneData {
 		this.fileCount = fileCount;
 	}
 
+	public String getMessage() {
+		return message;
+	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }
 

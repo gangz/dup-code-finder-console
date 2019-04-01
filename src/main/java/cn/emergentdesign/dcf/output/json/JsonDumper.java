@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonDumper {
 
 	public boolean output(String filename, Object object) {
-		toJson(object, filename+ ".json");
+		toJson(object, filename);
 		return true;
 	}
 
