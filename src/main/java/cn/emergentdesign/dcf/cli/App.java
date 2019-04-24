@@ -10,6 +10,7 @@ import cn.emergentdesign.dcf.data.CloneInstance;
 import cn.emergentdesign.dcf.data.Segment;
 import cn.emergentdesign.dcf.output.json.CloneData;
 import cn.emergentdesign.dcf.output.json.JsonDumper;
+import cn.emergentdesign.dcf.patterns.NullFrequentPatterns;
 import cn.emergentdesign.dcf.stat.resource.MemoryUsage;
 import cn.emergentdesign.dcf.uniform.Type1JavaUniformer;
 import cn.emergentdesign.dcf.uniform.Type2JavaUniformer;
@@ -26,13 +27,13 @@ public class App {
 
 	public void run() {
 		Uniformer uniformer = buildUniformer(params.getType());
-		IndexCloneDetector detector = new IndexCloneDetector(uniformer);
+		IndexCloneDetector detector = new IndexCloneDetector(uniformer,params.getMinimumLines(),new NullFrequentPatterns());
 		detector.addDir(params.getSrc());
 		for (String dir:params.getDirs()) {
 			detector.addDir(dir);
 		}
 		
-		CloneData data = buildCloneData(detector,params.getMinimumLines());
+		CloneData data = buildCloneData(detector);
 		data.setParameters(params);
 
 		JsonDumper dumper =new JsonDumper();
@@ -40,9 +41,9 @@ public class App {
 		MemoryUsage.outputMemoryUsage();
 	}
 
-	private CloneData buildCloneData(IndexCloneDetector detector, Integer minimumLines) {
+	private CloneData buildCloneData(IndexCloneDetector detector) {
 		CloneData data = new CloneData();
-		List<CloneClass> cloneGroups = detector.getCloneGroupBeforeAggregate(minimumLines);
+		Collection<CloneClass> cloneGroups = detector.getCloneGroupBeforeAggregate();
 		data.addGroup(cloneGroups);
 		data.buildSummary();
 		data.setFileCount(detector.getFileCount());
