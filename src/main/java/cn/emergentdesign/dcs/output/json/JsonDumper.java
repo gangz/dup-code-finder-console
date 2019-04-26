@@ -1,5 +1,5 @@
 
-package cn.emergentdesign.dcf.output.json;
+package cn.emergentdesign.dcs.output.json;
 
 import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;

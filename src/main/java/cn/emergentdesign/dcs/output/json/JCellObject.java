@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package cn.emergentdesign.dcf.output.json;
+package cn.emergentdesign.dcs.output.json;
 
 
 import javax.xml.bind.annotation.XmlAttribute;

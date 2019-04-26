@@ -1,8 +1,8 @@
 
 
-package cn.emergentdesign.dcf.cli;
+package cn.emergentdesign.dcs.cli;
 
-import cn.emergentdesign.dcf.stat.resource.MemoryUsage;
+import cn.emergentdesign.dcs.stat.resource.MemoryUsage;
 import picocli.CommandLine;
 import picocli.CommandLine.PicocliException;
 

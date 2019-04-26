@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package cn.emergentdesign.dcf.output.json;
+package cn.emergentdesign.dcs.output.json;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,8 +30,8 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import cn.emergentdesign.dcf.cli.CliParameters;
-import cn.emergentdesign.dcf.data.CloneClass;
+import cn.emergentdesign.dcs.cli.CliParameters;
+import cn.emergentdesign.dcs.data.CloneClass;
 
 @XmlRootElement(name = "code-clones")
 public class CloneData {

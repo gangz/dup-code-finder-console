@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.emergentdesign</groupId>
-			<artifactId>dup-code-finder</artifactId>
+			<artifactId>dup-code-sensor</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -57,7 +57,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>cn.emergentdesign.dcf.cli.Main</mainClass>
+							<mainClass>cn.emergentdesign.dcs.cli.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

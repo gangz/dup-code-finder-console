@@ -1,5 +1,5 @@
 
-package cn.emergentdesign.dcf.cli;
+package cn.emergentdesign.dcs.cli;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -20,7 +20,10 @@ public class CliParameters {
     private Integer minimumLines = new Integer(5);
     @Option(names = {"-h","--help"}, usageHelp = true, description = "display this help and exit")
     boolean help;
-	@Option(names = {"-s","--sources"},split=",", description = "The directories to be analyzed")
+    @Option(names = {"--no-adjacent-join"}, description = "do not join adjacent segments")
+    boolean noAdjacentJoin=false;
+
+	@Option(names = {"-s","--sources"},split=",", description = "The additional directories to be analyzed")
     private String[] dirs = new String[] {};
 
     public String[] getDirs() {
@@ -66,5 +69,13 @@ public class CliParameters {
 	}
 	public void setHelp(boolean help) {
 		this.help = help;
+	}
+	
+    public boolean isNoAdjacentJoin() {
+		return noAdjacentJoin;
+	}
+    
+	public void setNoAdjacentJoin(boolean noAdjacentJoin) {
+		this.noAdjacentJoin = noAdjacentJoin;
 	}
 }

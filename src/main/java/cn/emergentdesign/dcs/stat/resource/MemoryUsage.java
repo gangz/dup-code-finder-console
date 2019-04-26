@@ -1,4 +1,4 @@
-package cn.emergentdesign.dcf.stat.resource;
+package cn.emergentdesign.dcs.stat.resource;
 
 public class MemoryUsage {
 	public static void outputMemoryUsage() {

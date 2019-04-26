@@ -1,21 +1,21 @@
-package cn.emergentdesign.dcf.cli;
+package cn.emergentdesign.dcs.cli;
 
 import java.util.Collection;
 import java.util.List;
 
-import cn.emergentdesign.dcf.core.IndexCloneDetector;
-import cn.emergentdesign.dcf.core.InvertedIndexTable.IndexEntry;
-import cn.emergentdesign.dcf.data.CloneClass;
-import cn.emergentdesign.dcf.data.CloneInstance;
-import cn.emergentdesign.dcf.data.Segment;
-import cn.emergentdesign.dcf.output.json.CloneData;
-import cn.emergentdesign.dcf.output.json.JsonDumper;
-import cn.emergentdesign.dcf.patterns.NullFrequentPatterns;
-import cn.emergentdesign.dcf.stat.resource.MemoryUsage;
-import cn.emergentdesign.dcf.uniform.Type1JavaUniformer;
-import cn.emergentdesign.dcf.uniform.Type2JavaUniformer;
-import cn.emergentdesign.dcf.uniform.Type2cJavaUniformer;
-import cn.emergentdesign.dcf.uniform.Uniformer;
+import cn.emergentdesign.dcs.core.IndexCloneDetector;
+import cn.emergentdesign.dcs.core.InvertedIndexTable.IndexEntry;
+import cn.emergentdesign.dcs.data.CloneClass;
+import cn.emergentdesign.dcs.data.CloneInstance;
+import cn.emergentdesign.dcs.data.Segment;
+import cn.emergentdesign.dcs.output.json.CloneData;
+import cn.emergentdesign.dcs.output.json.JsonDumper;
+import cn.emergentdesign.dcs.patterns.NullFrequentPatterns;
+import cn.emergentdesign.dcs.stat.resource.MemoryUsage;
+import cn.emergentdesign.dcs.uniform.Type1JavaUniformer;
+import cn.emergentdesign.dcs.uniform.Type2JavaUniformer;
+import cn.emergentdesign.dcs.uniform.Type2cJavaUniformer;
+import cn.emergentdesign.dcs.uniform.Uniformer;
 
 public class App {
 
@@ -43,7 +43,12 @@ public class App {
 
 	private CloneData buildCloneData(IndexCloneDetector detector) {
 		CloneData data = new CloneData();
-		Collection<CloneClass> cloneGroups = detector.getCloneGroupBeforeAggregate();
+		Collection<CloneClass> cloneGroups = null;
+		if (params.isNoAdjacentJoin()) {
+			cloneGroups = detector.getCloneGroupBeforeAggregate();
+		}else {
+			cloneGroups = detector.getCloneGroupOfAdjacent();
+		}
 		data.addGroup(cloneGroups);
 		data.buildSummary();
 		data.setFileCount(detector.getFileCount());
@@ -52,6 +57,8 @@ public class App {
 			data.setMessage(detector.getErrorMessage());
 			System.err.println(detector.getErrorMessage());
 		}
+		cloneGroups = detector.getCloneGroupOfAdjacent();
+
 		return data;
 	}
 
